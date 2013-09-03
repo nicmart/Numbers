@@ -1,0 +1,26 @@
+{
+    "name": "nicmart/numberformat",
+    "type": "library",
+    "description": "Helpers to format numbers",
+    "keywords": [],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicolò Martini",
+            "email": "nicmartnic@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "NumberFormat": "src/",
+            "NumberFormat\\Test": "tests"
+        }
+    }
+}
+
