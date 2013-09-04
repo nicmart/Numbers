@@ -27,12 +27,15 @@ class Number
 
     /**
      * @param int $precision
+     * @param boolean $preserveInts
      * @return int|float
      * @return float
      */
-    public function round($precision)
+    public function round($precision, $preserveInts = false)
     {
-        return round($this->number, $precision - $this->magnitude() - 1);
+        $decimals = $this->decimalsForPrecision($precision, $preserveInts);
+
+        return round($this->number, $decimals);
     }
 
     /**
@@ -57,6 +60,19 @@ class Number
     }
 
     /**
+     * @return int
+     */
+    public function sign()
+    {
+        if ($this->number > 0)
+            return 1;
+        if ($this->number < 0)
+            return -1;
+
+        return 0;
+    }
+
+    /**
      * @param $precision
      * @return SciNotation
      */
@@ -64,5 +80,30 @@ class Number
     {
         $magnitude = $this->magnitude();
         return new SciNotation(pow(10, -$magnitude) * $this->round($precision), $magnitude);
+    }
+
+    /**
+     * @param int $precision
+     * @param string $separator
+     * @param bool $preserveInts
+     * @return string
+     */
+    public function format($precision = 3, $separator = ',', $preserveInts = true)
+    {
+        $decimals = $this->decimalsForPrecision($precision, $preserveInts);
+        $string = number_format(round($this->number, $decimals), $decimals, '.', $separator);
+
+        $string = rtrim(rtrim($string, '.'), '0');
+
+        return $string;
+    }
+
+    private function decimalsForPrecision($precision, $preserveInts = true)
+    {
+        $decimals = $precision - $this->magnitude() - 1;
+        if ($preserveInts)
+            $decimals = max(0, $decimals);
+
+        return $decimals;
     }
 }

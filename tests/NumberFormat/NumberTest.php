@@ -17,11 +17,6 @@ use NumberFormat\SciNotation;
  */
 class NumberTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-
-    }
-
     public function testRound()
     {
         $n1 = new Number(11.235523);
@@ -81,5 +76,21 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new SciNotation(-1.23, 13), $sc3);
         $this->assertEquals(new SciNotation(-2.0, 0), $sc4);
         $this->assertEquals(new SciNotation(0, 0), $sc0);
+    }
+
+    public function testFormat()
+    {
+        $n1 = new Number(1123232.9898232);
+        $n2 = new Number(0.000011235523);
+        $n3 = new Number(-12315639128398.232);
+        $n4 = new Number(-2.0);
+        $n0 = new Number(0);
+
+        $this->assertEquals('1,123,233', $n1->format());
+        $this->assertEquals('1,123,232.99', $n1->format(9));
+        $this->assertEquals('0.00001124', $n2->format(4));
+        $this->assertEquals('-12,315,639,128,398', $n3->format());
+        $this->assertEquals('-2.0', $n4->format());
+        $this->assertEquals('0', $n0->format());
     }
 }
