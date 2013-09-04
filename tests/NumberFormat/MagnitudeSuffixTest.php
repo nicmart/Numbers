@@ -31,5 +31,14 @@ class MagnitudeSuffixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('M', (string) (new MagnitudeSuffix(7)));
         $this->assertEquals('M', (string) (new MagnitudeSuffix(8)));
     }
+
+    public function testFromNumber()
+    {
+        $m = MagnitudeSuffix::fromNumber(112321);
+        $this->assertEquals('k', (string) $m);
+
+        $m = MagnitudeSuffix::fromNumber(0.001232);
+        $this->assertEquals('m', (string) $m);
+    }
 }
  
