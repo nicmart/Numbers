@@ -69,6 +69,6 @@ class MagnitudeSuffix
      */
     public function __toString()
     {
-        return static::$suffixes[$this->magnitude - $this->magnitude % 3];
+        return static::$suffixes[3 * floor($this->magnitude/3)];
     }
 } 

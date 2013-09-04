@@ -83,6 +83,18 @@ class Number
     }
 
     /**
+     * @param $precision
+     * @return SuffixNotation
+     */
+    public function suffixNotation($precision)
+    {
+        $magnitude = $this->magnitude();
+        $exp = 3 * floor($magnitude/3);
+
+        return new SuffixNotation(pow(10, -$exp) * $this->round($precision), new MagnitudeSuffix($magnitude));
+    }
+
+    /**
      * @param int $precision
      * @param string $separator
      * @param bool $preserveInts

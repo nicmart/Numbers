@@ -17,10 +17,12 @@ class MagnitudeSuffixTest extends \PHPUnit_Framework_TestCase
 {
     public function testToString()
     {
-        $this->assertEquals('m', (string) (new MagnitudeSuffix(-4)));
+        $this->assertEquals('µ', (string) (new MagnitudeSuffix(-6)));
+        $this->assertEquals('µ', (string) (new MagnitudeSuffix(-5)));
+        $this->assertEquals('µ', (string) (new MagnitudeSuffix(-4)));
         $this->assertEquals('m', (string) (new MagnitudeSuffix(-3)));
-        $this->assertEquals('', (string) (new MagnitudeSuffix(-2)));
-        $this->assertEquals('', (string) (new MagnitudeSuffix(-1)));
+        $this->assertEquals('m', (string) (new MagnitudeSuffix(-2)));
+        $this->assertEquals('m', (string) (new MagnitudeSuffix(-1)));
         $this->assertEquals('', (string) (new MagnitudeSuffix(0)));
         $this->assertEquals('', (string) (new MagnitudeSuffix(1)));
         $this->assertEquals('', (string) (new MagnitudeSuffix(2)));

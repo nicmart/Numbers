@@ -93,4 +93,20 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('-2.0', $n4->format());
         $this->assertEquals('0', $n0->format());
     }
+
+    public function testSuffixNotation()
+    {
+        $n1 = new Number(11232322.9898232);
+        $n2 = new Number(11.000235523);
+        $n3 = new Number(-12315639128398.232);
+        $n4 = new Number(-22321.0);
+        $n0 = new Number(0);
+
+        $this->assertEquals('11.2M', (string) $n1->suffixNotation(3));
+        $this->assertEquals('10M', (string) $n1->suffixNotation(1));
+        $this->assertEquals('11', (string) $n2->suffixNotation(5));
+        $this->assertEquals('-12.31563913T', (string) $n3->suffixNotation(10));
+        $this->assertEquals('-22.321k', (string) $n4->suffixNotation(20));
+        $this->assertEquals('0', (string) $n0->suffixNotation(20));
+    }
 }
