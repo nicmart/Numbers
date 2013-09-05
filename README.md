@@ -4,7 +4,7 @@
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/nicmart/Numbers/badges/quality-score.png?s=60dc5db3755f1d09789fb05e44bd9b413cf19179)](https://scrutinizer-ci.com/g/nicmart/Numbers/)
 
 Numbers provides a simple and powerful way to convert numbers in various string formats,
-like scientific notation or unit-suffix notation. 
+like **scientific notation** or **unit-suffix notation**. 
 
 It also gives you control on numbers precision
  (that's different of the numbers of decimals!), making it simple to format numbers as you want in your view layer.
@@ -79,7 +79,7 @@ echo Number::n(123123.23)->format(',', ' ');
 
 ### Other functions
 #### Floor and Ceil
-They are like the [mathematical functions](http://en.wikipedia.org/wiki/Floor_and_ceiling_functions) 
+They behave like their [mathematical counterparts](http://en.wikipedia.org/wiki/Floor_and_ceiling_functions) 
 and the builtin php functions:
 ```php
 // Returns "123123"
