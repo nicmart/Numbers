@@ -11,7 +11,7 @@
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="NumberFormat test suite">
+        <testsuite name="Numbers test suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

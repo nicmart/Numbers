@@ -1,7 +1,7 @@
 {
-    "name": "nicmart/numberformat",
+    "name": "nicmart/numbers",
     "type": "library",
-    "description": "Helpers to format numbers",
+    "description": "Format numbers in various formats, like scientific notation or unit-suffix notation",
     "keywords": [],
     "license": "MIT",
     "authors": [
@@ -18,8 +18,8 @@
     },
     "autoload": {
         "psr-0": {
-            "NumberFormat": "src/",
-            "NumberFormat\\Test": "tests"
+            "Numbers": "src/",
+            "Numbers\\Test": "tests"
         }
     }
 }

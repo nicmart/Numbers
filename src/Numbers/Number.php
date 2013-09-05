@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of NumberFormat.
+ * This file is part of Numbers.
  *
  * (c) 2013 Nicolò Martini
  *
@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace NumberFormat;
+namespace Numbers;
 
 /**
  * Class Number
