@@ -137,9 +137,9 @@ class Number
     /**
      * @return SuffixNotation
      */
-    public function getSuffixNotation()
+    public function getSuffixNotation($magnitude = null)
     {
-        $magnitude = $this->getMagnitude();
+        $magnitude = isset($magnitude) ? $magnitude : $this->getMagnitude();
         $exp = 3 * floor($magnitude/3);
 
         return new SuffixNotation(pow(10, -$exp) * $this->number, new MagnitudeSuffix($magnitude));
