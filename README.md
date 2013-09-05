@@ -1,7 +1,7 @@
 # Numbers
 [![Build Status](https://travis-ci.org/nicmart/Numbers.png?branch=master)](https://travis-ci.org/nicmart/Numbers)
 [![Coverage Status](https://coveralls.io/repos/nicmart/Numbers/badge.png?branch=master)](https://coveralls.io/r/nicmart/Numbers?branch=master)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/nicmart/Numbers/badges/quality-score.png?s=e06818508807c109a8c9354a73fc1a5227426c09)](https://scrutinizer-ci.com/g/nicmart/StringTemplate/)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/nicmart/Numbers/badges/quality-score.png?s=60dc5db3755f1d09789fb05e44bd9b413cf19179)](https://scrutinizer-ci.com/g/nicmart/Numbers/)
 
 Numbers provides a simple and powerful way to convert numbers in various string formats,
 like scientific notation or unit-suffix notation. It also gives you control on numbers precision
