@@ -45,6 +45,49 @@ A `SciNotation` objects convert themselves to html when casted to strings:<br>
 `(string) Number::n(1234.567)->getSciNotation()` → 1.234567 × 10<sup>4</sup><br>
 `(string) Number::n(0.000023)->getSciNotation()` → 2.3 × 10<sup>-5</sup><br>
 
+### Suffix notation
+With suffix notation you can convert a number to a format using the [metric prefix notation](http://en.wikipedia.org/wiki/Metric_prefix).
+What you will get is a number followed by a suffix that indicates the magnitude of that number, 
+using the "kilo", "mega", etc... symbols. All the [SI](http://en.wikipedia.org/wiki/International_System_of_Units) symbols are supported.
+
+```php
+// Prints "1.23k"
+echo Number::n(1234.567)->round(3)->getPrefixNotation();
+
+
+// Prints "79G"
+echo Number::n(79123232123)->round(2)->getPrefixNotation();
+
+
+// Prints "123.4µ"
+echo Number::n(0.0001234)->getPrefixNotation();
+```
+
+### Format with thousands and decimals separator
+The `format` method works like `number_format`, but without the hassle of specifying the
+number of decimals. The number of significant figures will be used instead. Furthermore, it
+will not print trailing zeros in the decimal part.
+
+```php
+// Prints "123,123.23"
+echo Number::n(123123.23)->format();
+
+// Prints "123 123,23"
+echo Number::n(123123.23)->format(',', ' ');
+
+```
+
+### Other functions
+#### floor and ceil
+```php
+// Returns "123123"
+Number::n(123123.23)->floor()->get();
+
+// Returns "123124"
+Number::n(123123.23)->ceil()->get();
+
+```
+
 ## Install
 
 The best way to install Numbers is [through composer](http://getcomposer.org).
