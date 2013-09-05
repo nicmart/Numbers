@@ -15,10 +15,14 @@ namespace Numbers;
  */
 class Number
 {
-    public static $max_digit_precision = 14;
+    /**
+     * {@link http://php.net/manual/en/language.types.float.php}
+     * @var int
+     */
+    public static $max_significants = 14;
 
     private $number;
-    private $precision;
+    private $significants;
 
     /**
      * @param int|float $number
@@ -35,17 +39,17 @@ class Number
     public function __construct($number)
     {
         $this->number = $number;
-        $this->precision = static::$max_digit_precision;
+        $this->significants = static::$max_significants;
     }
 
     /**
-     * @param int $precision
+     * @param int $significants
      * @param bool $preserveInts
      * @return $this
      */
-    public function round($precision, $preserveInts = false)
+    public function round($significants, $preserveInts = false)
     {
-        $this->precision = $precision;
+        $this->significants = $significants;
         $decimals = $this->decimalsForPrecision($preserveInts);
 
         $this->number = round($this->number, $decimals);
@@ -162,7 +166,7 @@ class Number
      */
     private function decimalsForPrecision($preserveInts = true)
     {
-        $decimals = $this->precision - $this->getMagnitude() - 1;
+        $decimals = $this->significants - $this->getMagnitude() - 1;
         if ($preserveInts)
             $decimals = max(0, $decimals);
 

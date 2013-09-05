@@ -17,18 +17,18 @@ namespace Numbers;
 class SciNotation
 {
     /** @var float */
-    public $mantissa;
+    public $significand;
 
     /** @var int */
     public $magnitude;
 
     /**
-     * @param $mantissa
+     * @param $significand
      * @param int $magnitude
      */
-    public function __construct($mantissa, $magnitude = 0)
+    public function __construct($significand, $magnitude = 0)
     {
-        $this->mantissa = $mantissa;
+        $this->significand = $significand;
         $this->magnitude = $magnitude;
     }
 
@@ -37,7 +37,7 @@ class SciNotation
      */
     public function __toString()
     {
-        $result = (string) $this->mantissa;
+        $result = (string) $this->significand;
 
         if ($this->magnitude)
             $result .= " &times; 10<sup>{$this->magnitude}</sup>";

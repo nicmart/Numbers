@@ -10,18 +10,35 @@
 
 namespace Numbers;
 
-
+/**
+ * Class SuffixNotation
+ * @package Numbers
+ */
 class SuffixNotation
 {
+    /**
+     * @var float|int
+     */
     public $number;
+
+    /**
+     * @var MagnitudeSuffix
+     */
     public $suffix;
 
+    /**
+     * @param float|int $number
+     * @param MagnitudeSuffix $suffix
+     */
     public function __construct($number, MagnitudeSuffix $suffix)
     {
         $this->number = $number;
         $this->suffix = $suffix;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->number . (string) $this->suffix;
