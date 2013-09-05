@@ -78,14 +78,45 @@ echo Number::n(123123.23)->format(',', ' ');
 ```
 
 ### Other functions
-#### floor and ceil
+#### Floor and Ceil
+They are like the [mathematical functions](http://en.wikipedia.org/wiki/Floor_and_ceiling_functions) 
+and the builtin php functions:
 ```php
 // Returns "123123"
 Number::n(123123.23)->floor()->get();
 
 // Returns "123124"
 Number::n(123123.23)->ceil()->get();
+```
+### Magnitude
+Gives the order of magnitude of the number (that is equal to the exponent of 10 in the Scientific Notation): 
+```php
+// Returns 6
+Number::n(123123.23)->getMagnitude();
 
+// Returns -2
+Number::n(0.01232)->getMagnitude();
+```
+
+### Sign
+The [sign function](https://en.wikipedia.org/wiki/Sign_function), as defined in mathematics
+```php
+// Returns 1
+Number::n(12312)->getSign();
+
+// Returns -1
+Number::n(-0.0023)->getSign();
+
+// Returns 0
+Number::n(0)->getSign();
+```
+
+### Apply
+Apply a callback to the underlying scalar number, in a [Monad](https://en.wikipedia.org/wiki/Monad) fashion:
+```php
+$double = function($n){ return 2 * $n; };
+// Returns 16
+Number::n(4)->apply($double)->apply($double)->get();
 ```
 
 ## Install
