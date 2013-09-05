@@ -15,7 +15,10 @@ namespace NumberFormat;
  */
 class Number
 {
+    public static $max_digit_precision = 14;
+
     private $number;
+    private $precision;
 
     /**
      * @param $number
@@ -23,35 +26,72 @@ class Number
     public function __construct($number)
     {
         $this->number = $number;
+        $this->precision = static::$max_digit_precision;
     }
 
     /**
      * @param int $precision
-     * @param boolean $preserveInts
-     * @return int|float
-     * @return float
+     * @param bool $preserveInts
+     * @return $this
      */
     public function round($precision, $preserveInts = false)
     {
-        $decimals = $this->decimalsForPrecision($precision, $preserveInts);
+        $this->precision = $precision;
+        $decimals = $this->decimalsForPrecision($preserveInts);
 
-        return round($this->number, $decimals);
+        $this->number = round($this->number, $decimals);
+
+
+        return $this;
     }
 
     /**
-     * @return float
+     * @return $this
      */
-    public function integerPart()
+    public function floor()
     {
-        return floor($this->number);
+        $this->number = floor($this->number);
+
+        return $this;
     }
 
     /**
-     * Return the order of magnitude of the number
+     * @return $this
+     */
+    public function ceil()
+    {
+        $this->number = ceil($this->number);
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function get()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Apply a function to the underlying number
+     *
+     * @param callable $callable
+     * @return $this
+     */
+    public function apply($callable)
+    {
+        $this->number = call_user_func($callable, $this->number);
+
+        return $this;
+    }
+
+    /**
+     * Return the order of getMagnitude of the number
      * @param int $base
      * @return int
      */
-    public function magnitude($base = 10)
+    public function getMagnitude($base = 10)
     {
         if ($this->number == 0)
             return 0;
@@ -62,7 +102,7 @@ class Number
     /**
      * @return int
      */
-    public function sign()
+    public function getSign()
     {
         if ($this->number > 0)
             return 1;
@@ -73,46 +113,47 @@ class Number
     }
 
     /**
-     * @param $precision
      * @return SciNotation
      */
-    public function scientific($precision)
+    public function getSciNotation()
     {
-        $magnitude = $this->magnitude();
-        return new SciNotation(pow(10, -$magnitude) * $this->round($precision), $magnitude);
+        $magnitude = $this->getMagnitude();
+        return new SciNotation(pow(10, -$magnitude) * $this->number, $magnitude);
     }
 
     /**
-     * @param $precision
      * @return SuffixNotation
      */
-    public function suffixNotation($precision)
+    public function getSuffixNotation()
     {
-        $magnitude = $this->magnitude();
+        $magnitude = $this->getMagnitude();
         $exp = 3 * floor($magnitude/3);
 
-        return new SuffixNotation(pow(10, -$exp) * $this->round($precision), new MagnitudeSuffix($magnitude));
+        return new SuffixNotation(pow(10, -$exp) * $this->number, new MagnitudeSuffix($magnitude));
     }
 
     /**
-     * @param int $precision
+     * @param string $decPoint
      * @param string $separator
-     * @param bool $preserveInts
      * @return string
      */
-    public function format($precision = 3, $separator = ',', $preserveInts = true)
+    public function format($decPoint = '.', $separator = ',')
     {
-        $decimals = $this->decimalsForPrecision($precision, $preserveInts);
-        $string = number_format(round($this->number, $decimals), $decimals, '.', $separator);
+        $decimals = $this->decimalsForPrecision();
+        $string = number_format(round($this->number, $decimals), $decimals, $decPoint, $separator);
 
-        $string = rtrim(rtrim($string, '.'), '0');
+        $string = rtrim(rtrim($string, $decPoint), '0');
 
         return $string;
     }
 
-    private function decimalsForPrecision($precision, $preserveInts = true)
+    /**
+     * @param bool $preserveInts
+     * @return int|mixed
+     */
+    private function decimalsForPrecision($preserveInts = true)
     {
-        $decimals = $precision - $this->magnitude() - 1;
+        $decimals = $this->precision - $this->getMagnitude() - 1;
         if ($preserveInts)
             $decimals = max(0, $decimals);
 

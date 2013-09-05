@@ -53,7 +53,7 @@ class MagnitudeSuffix
     {
         $number = new Number($n);
 
-        return new static($number->magnitude());
+        return new static($number->getMagnitude());
     }
 
     /**
