@@ -17,6 +17,17 @@ use NumberFormat\SciNotation;
  */
 class NumberTest extends \PHPUnit_Framework_TestCase
 {
+    public function testStaticCreation()
+    {
+        $n1 = Number::n(1.123232);
+        $this->assertEquals(new Number(1.123232), $n1);
+    }
+
+    public function testGet()
+    {
+        $n1 = new Number(11.235523);
+        $this->assertEquals(11.235523, $n1->get());
+    }
     public function testRound()
     {
         $n1 = new Number(11.235523);
@@ -43,7 +54,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $n0->getMagnitude());
     }
 
-    public function testIntegerPart()
+    public function testFloor()
     {
         $n1 = new Number(11.98982323);
         $n2 = new Number(0.000011235523);
@@ -56,6 +67,21 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-12315639128399, $n3->floor()->get());
         $this->assertEquals(0, $n0->floor()->get());
         $this->assertEquals(-2, $n4->floor()->get());
+    }
+
+    public function testCeil()
+    {
+        $n1 = new Number(11.98982323);
+        $n2 = new Number(0.000011235523);
+        $n3 = new Number(-12315639128398.232);
+        $n4 = new Number(-2.0);
+        $n0 = new Number(0);
+
+        $this->assertEquals(12, $n1->ceil()->get());
+        $this->assertEquals(1, $n2->ceil()->get());
+        $this->assertEquals(-12315639128398, $n3->ceil()->get());
+        $this->assertEquals(0, $n0->ceil()->get());
+        $this->assertEquals(-2, $n4->ceil()->get());
     }
 
     public function testScientific()
@@ -94,7 +120,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0', $n0->format());
     }
 
-    public function testSuffixNotation()
+    public function testGetSuffixNotation()
     {
         $n1 = new Number(11200000.0);
         $n2 = new Number(11.0);
@@ -107,5 +133,11 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('-1.231563913G', (string) $n3->getSuffixNotation());
         $this->assertEquals('-22.321k', (string) $n4->getSuffixNotation());
         $this->assertEquals('0', (string) $n0->getSuffixNotation());
+    }
+
+    public function testApply()
+    {
+        $n1 = new Number(2);
+        $this->assertEquals(sqrt(2), $n1->apply('sqrt')->get());
     }
 }

@@ -21,6 +21,15 @@ class Number
     private $precision;
 
     /**
+     * @param int|float $number
+     * @return static
+     */
+    public static function n($number)
+    {
+        return new static($number);
+    }
+
+    /**
      * @param $number
      */
     public function __construct($number)
