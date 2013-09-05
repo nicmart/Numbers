@@ -31,4 +31,17 @@ class SciNotation
         $this->mantissa = $mantissa;
         $this->magnitude = $magnitude;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $result = (string) $this->mantissa;
+
+        if ($this->magnitude)
+            $result .= " &times; 10<sup>{$this->magnitude}</sup>";
+
+        return $result;
+    }
 } 
