@@ -4,8 +4,46 @@
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/nicmart/Numbers/badges/quality-score.png?s=60dc5db3755f1d09789fb05e44bd9b413cf19179)](https://scrutinizer-ci.com/g/nicmart/Numbers/)
 
 Numbers provides a simple and powerful way to convert numbers in various string formats,
-like scientific notation or unit-suffix notation. It also gives you control on numbers precision
+like scientific notation or unit-suffix notation. 
+
+It also gives you control on numbers precision
  (that's different of the numbers of decimals!), making it simple to format numbers as you want in your view layer.
+ 
+For installing instructions, please go to the end of this README.
+
+## Usage
+First, instantiate an object of the `Number` class. You can do it in two ways: directly or using the `n` static method:
+```php
+use Numbers\Number;
+$n = new Number(3.1415926535898);
+$n = Number::n(3.1415926535898);
+```
+You can then retrieve the underlying float/int value using the `get` method:
+```php
+var_dump($n->get()); //double(3.1415926535898) 
+```
+
+### Significant figures
+You can set the number of [significant figures](http://en.wikipedia.org/wiki/Significant_figures) using the method `round`.
+```php
+$n->round(5)->get(); // returns 3.1416
+```
+
+As you can see, the `round` method works differently from the php builtin `round`function, since you are not setting the number of decimals, but the number of significant figures:
+```php
+(new Number(0.000123456))->round(5)->get(); // returns 0.00012346
+```
+
+### Scientific notation
+You can easily convert a `Number` to [Scientific Notation](http://en.wikipedia.org/wiki/Scientific_notation):
+```php
+$sciNotation = Number::n(1234.567)->getSciNotation();
+echo $sciNotation->significand; // 1.234567
+echo $sciNotation->magnitude; // 4
+```
+A `SciNotation` objects convert themselves to html when casted to strings:<br>
+`(string) Number::n(1234.567)->getSciNotation()` → 1.234567 × 10<sup>4</sup><br>
+`(string) Number::n(0.000023)->getSciNotation()` → 2.3 × 10<sup>-5</sup><br>
 
 ## Install
 
