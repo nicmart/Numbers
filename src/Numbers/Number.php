@@ -135,6 +135,8 @@ class Number
     }
 
     /**
+     * @param int $magnitude
+     *
      * @return SuffixNotation
      */
     public function getSuffixNotation($magnitude = null)
@@ -150,8 +152,20 @@ class Number
      * @param string $separator
      * @return string
      */
-    public function format($decPoint = '.', $separator = ',')
+    public function format($decPoint = null, $separator = null)
     {
+        if ($decPoint == null || $separator == null) {
+            $locale = localeconv();
+
+            if ($decPoint == null) {
+                $decPoint = $locale["decimal_point"];
+            }
+
+            if ($separator == null) {
+                $separator = $locale["thousands_sep"];
+            }
+        }
+        
         $decimals = $this->decimalsForPrecision();
         $string = number_format(round($this->number, $decimals), $decimals, $decPoint, $separator);
 

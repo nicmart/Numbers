@@ -112,16 +112,32 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $n4 = new Number(-2.0);
         $n0 = new Number(0);
 
-        $this->assertEquals('1,123,232.9898232', $n1->format());
+
+        $this->assertEquals('1,123,232.9898232', $n1->format('.', ','));
         $this->assertEquals('1 123 232,9898232', $n1->format(',', ' '));
-        $this->assertEquals('0.000011235523', $n2->format());
-        $this->assertEquals('-12,315,639,128,398', $n3->format());
-        $this->assertEquals('-2.0', $n4->format());
-        $this->assertEquals('0', $n0->format());
+        $this->assertEquals('0.000011235523', $n2->format('.', ','));
+        $this->assertEquals('-12,315,639,128,398', $n3->format('.', ','));
+        $this->assertEquals('-2.0', $n4->format('.', ','));
+        $this->assertEquals('0', $n0->format('.', ','));
+
+
+        if (setlocale(LC_ALL, 'nl_NL') !== false || setlocale(LC_ALL, 'dutch')) {
+            $this->assertEquals('1.123.232,9898232', $n1->format());
+        }
+
+        if (setlocale(LC_ALL, 'en_us') !== false || setlocale(LC_ALL, 'english-us')) {
+            $this->assertEquals('1,123,232.9898232', $n1->format());
+        } else {
+            throw new \Exception("Could not set locale");
+        }
     }
 
     public function testGetSuffixNotation()
     {
+        if (setlocale(LC_ALL, 'en_us') === false && setlocale(LC_ALL, 'english-us') === false) {
+            throw new \Exception("Could not set locale");
+        }
+
         $n1 = new Number(11200000.0);
         $n2 = new Number(11.0);
         $n3 = new Number(-1231563913);
