@@ -101,15 +101,14 @@ class Number
 
     /**
      * Return the order of getMagnitude of the number
-     * @param int $base
      * @return int
      */
-    public function getMagnitude($base = 10)
+    public function getMagnitude()
     {
         if ($this->number == 0)
             return 0;
 
-        return floor(log(abs($this->number), $base));
+        return floor(log10(abs($this->number)));
     }
 
     /**

@@ -44,15 +44,19 @@ class NumberTest extends \PHPUnit_Framework_TestCase
 
     public function testMagnitude()
     {
+        $n0 = new Number(0);
         $n1 = new Number(11.235523);
         $n2 = new Number(-0.000011235523);
         $n3 = new Number(-12315639128398.232);
-        $n0 = new Number(0);
+        $n4 = new Number(1000);
+        $n5 = new Number(0.01);
 
+        $this->assertEquals(0, $n0->getMagnitude());
         $this->assertEquals(1, $n1->getMagnitude());
         $this->assertEquals(-5, $n2->getMagnitude());
         $this->assertEquals(13, $n3->getMagnitude());
-        $this->assertEquals(0, $n0->getMagnitude());
+        $this->assertEquals(3, $n4->getMagnitude());
+        $this->assertEquals(-2, $n5->getMagnitude());
     }
 
     public function testFloor()
@@ -139,12 +143,14 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $n3 = new Number(-1231563913);
         $n4 = new Number(-22321.0);
         $n0 = new Number(0);
+        $n5 = new Number(1000);
 
-        $this->assertEquals('11.2M', (string)$n1->getSuffixNotation());
-        $this->assertEquals('11', (string)$n2->getSuffixNotation());
-        $this->assertEquals('-1.231563913G', (string)$n3->getSuffixNotation());
-        $this->assertEquals('-22.321k', (string)$n4->getSuffixNotation());
-        $this->assertEquals('0', (string)$n0->getSuffixNotation());
+        $this->assertEquals('11.2M', (string) $n1->getSuffixNotation());
+        $this->assertEquals('11', (string) $n2->getSuffixNotation());
+        $this->assertEquals('-1.231563913G', (string) $n3->getSuffixNotation());
+        $this->assertEquals('-22.321k', (string) $n4->getSuffixNotation());
+        $this->assertEquals('0', (string) $n0->getSuffixNotation());
+        $this->assertEquals('1k', (string) $n5->getSuffixNotation());
     }
 
     public function testApply()
