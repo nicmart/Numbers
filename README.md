@@ -76,7 +76,7 @@ echo Number::n(123123.23)->format();
 echo Number::n(123123.23)->format(',', ' ');
 ```
 
-By default `format` fallbacks to `.` and `,` separators some argument is missing. If you want instead
+By default `format` fallbacks to `.` and `,` separators if some argument is missing. If you want instead
 to fallback to the current locale settings of the machine, you can use `localeFormat`.
 
 ### Other functions
