@@ -74,8 +74,10 @@ echo Number::n(123123.23)->format();
 
 // Prints "123 123,23"
 echo Number::n(123123.23)->format(',', ' ');
-
 ```
+
+By default `format` fallbacks to `.` and `,` separators some argument is missing. If you want instead
+to fallback to the current locale settings of the machine, you can use `localeFormat`.
 
 ### Other functions
 #### Floor and Ceil

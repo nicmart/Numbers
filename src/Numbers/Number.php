@@ -163,6 +163,9 @@ class Number
     }
 
     /**
+     * This is the same of format(), only that it will fallback to machine locale values
+     * when some argument is missing.
+     *
      * @param string|null $decPoint
      * @param string|null $separator
      * @return string
@@ -172,15 +175,12 @@ class Number
         if (!isset($decPoint) || !isset($separator)) {
             $locale = localeconv();
 
-            if (!isset($decPoint)) {
+            if (!isset($decPoint))
                 $decPoint = $locale["decimal_point"];
-            }
 
-            if (!isset($separator)) {
+            if (!isset($separator))
                 $separator = $locale["thousands_sep"];
-            }
         }
-
 
         return $this->format($decPoint, $separator);
     }
