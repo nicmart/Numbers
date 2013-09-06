@@ -113,19 +113,21 @@ class NumberTest extends \PHPUnit_Framework_TestCase
 
     public function testFormat()
     {
+        $n0 = new Number(0);
         $n1 = new Number(1123232.9898232);
         $n2 = new Number(0.000011235523);
         $n3 = new Number(-12315639128398.232);
         $n4 = new Number(-2.0);
-        $n0 = new Number(0);
+        $n5 = new Number(16.0);
 
 
+        $this->assertEquals('0', $n0->format('.', ','));
         $this->assertEquals('1,123,232.9898232', $n1->format('.', ','));
         $this->assertEquals('1 123 232,9898232', $n1->format(',', ' '));
         $this->assertEquals('0.000011235523', $n2->format('.', ','));
         $this->assertEquals('-12,315,639,128,398', $n3->format('.', ','));
-        $this->assertEquals('-2.0', $n4->format('.', ','));
-        $this->assertEquals('0', $n0->format('.', ','));
+        $this->assertEquals('-2', $n4->format());
+        $this->assertEquals('16', $n5->format());
     }
 
     public function testLocaleFormat()

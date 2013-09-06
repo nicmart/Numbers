@@ -156,7 +156,7 @@ class Number
         $decimals = $this->decimalsForPrecision();
         $string = number_format(round($this->number, $decimals), $decimals, $decPoint, $separator);
 
-        $string = rtrim(rtrim($string, $decPoint), '0');
+        $string = rtrim(rtrim($string, '0'), $decPoint);
 
         return $string;
     }
