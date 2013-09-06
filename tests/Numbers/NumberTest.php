@@ -28,6 +28,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $n1 = new Number(11.235523);
         $this->assertEquals(11.235523, $n1->get());
     }
+
     public function testRound()
     {
         $n1 = new Number(11.235523);
@@ -112,12 +113,23 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $n4 = new Number(-2.0);
         $n0 = new Number(0);
 
-        $this->assertEquals('1,123,232.9898232', $n1->format());
+
+        $this->assertEquals('1,123,232.9898232', $n1->format('.', ','));
         $this->assertEquals('1 123 232,9898232', $n1->format(',', ' '));
-        $this->assertEquals('0.000011235523', $n2->format());
-        $this->assertEquals('-12,315,639,128,398', $n3->format());
-        $this->assertEquals('-2.0', $n4->format());
-        $this->assertEquals('0', $n0->format());
+        $this->assertEquals('0.000011235523', $n2->format('.', ','));
+        $this->assertEquals('-12,315,639,128,398', $n3->format('.', ','));
+        $this->assertEquals('-2.0', $n4->format('.', ','));
+        $this->assertEquals('0', $n0->format('.', ','));
+    }
+
+    public function testLocaleFormat()
+    {
+        $locale = localeconv();
+        $n1 = new Number(1123232.9898232);
+
+        $this->assertEquals('1,123,232.9898232', $n1->localeFormat('.', ','));
+        $this->assertEquals($n1->format('.', $locale["thousands_sep"]), $n1->localeFormat('.', null));
+        $this->assertEquals($n1->format($locale["decimal_point"], ','), $n1->localeFormat(null, ','));
     }
 
     public function testGetSuffixNotation()
@@ -128,11 +140,11 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $n4 = new Number(-22321.0);
         $n0 = new Number(0);
 
-        $this->assertEquals('11.2M', (string) $n1->getSuffixNotation());
-        $this->assertEquals('11', (string) $n2->getSuffixNotation());
-        $this->assertEquals('-1.231563913G', (string) $n3->getSuffixNotation());
-        $this->assertEquals('-22.321k', (string) $n4->getSuffixNotation());
-        $this->assertEquals('0', (string) $n0->getSuffixNotation());
+        $this->assertEquals('11.2M', (string)$n1->getSuffixNotation());
+        $this->assertEquals('11', (string)$n2->getSuffixNotation());
+        $this->assertEquals('-1.231563913G', (string)$n3->getSuffixNotation());
+        $this->assertEquals('-22.321k', (string)$n4->getSuffixNotation());
+        $this->assertEquals('0', (string)$n0->getSuffixNotation());
     }
 
     public function testApply()

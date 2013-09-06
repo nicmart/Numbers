@@ -135,6 +135,8 @@ class Number
     }
 
     /**
+     * @param int $magnitude
+     *
      * @return SuffixNotation
      */
     public function getSuffixNotation($magnitude = null)
@@ -158,6 +160,29 @@ class Number
         $string = rtrim(rtrim($string, $decPoint), '0');
 
         return $string;
+    }
+
+    /**
+     * @param string|null $decPoint
+     * @param string|null $separator
+     * @return string
+     */
+    public function localeFormat($decPoint = null, $separator = null)
+    {
+        if (!isset($decPoint) || !isset($separator)) {
+            $locale = localeconv();
+
+            if (!isset($decPoint)) {
+                $decPoint = $locale["decimal_point"];
+            }
+
+            if (!isset($separator)) {
+                $separator = $locale["thousands_sep"];
+            }
+        }
+
+
+        return $this->format($decPoint, $separator);
     }
 
     /**
