@@ -169,14 +169,14 @@ class Number
      */
     public function localeFormat($decPoint = null, $separator = null)
     {
-        if ($decPoint == null || $separator == null) {
+        if (!isset($decPoint) || !isset($separator)) {
             $locale = localeconv();
 
-            if ($decPoint == null) {
+            if (!isset($decPoint)) {
                 $decPoint = $locale["decimal_point"];
             }
 
-            if ($separator == null) {
+            if (!isset($separator)) {
                 $separator = $locale["thousands_sep"];
             }
         }

@@ -120,33 +120,16 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('-12,315,639,128,398', $n3->format('.', ','));
         $this->assertEquals('-2.0', $n4->format('.', ','));
         $this->assertEquals('0', $n0->format('.', ','));
-
     }
 
     public function testLocaleFormat()
     {
+        $locale = localeconv();
         $n1 = new Number(1123232.9898232);
-        $n2 = new Number(0.000011235523);
 
-        if (setlocale(LC_ALL, 'nl_NL') !== false || setlocale(LC_ALL, 'dutch')) {
-            $this->assertEquals("1.123.232,9898232", $n1->localeFormat());
-            $this->assertEquals("1 123 232,9898232", $n1->localeFormat(null, ' '));
-
-            $this->assertEquals('0,000011235523', $n2->localeFormat());
-            $this->assertEquals('0.000011235523', $n2->localeFormat("."));
-        } else {
-            throw new \Exception("Could not set locale");
-        }
-
-        if (setlocale(LC_ALL, 'en_us') !== false || setlocale(LC_ALL, 'english-us')) {
-            $this->assertEquals("1,123,232.9898232", $n1->localeFormat());
-            $this->assertEquals("1 123 232.9898232", $n1->localeFormat(null, ' '));
-
-            $this->assertEquals('0.000011235523', $n2->localeFormat());
-            $this->assertEquals('0,000011235523', $n2->localeFormat(','));
-        } else {
-            throw new \Exception("Could not set locale");
-        }
+        $this->assertEquals('1,123,232.9898232', $n1->localeFormat('.', ','));
+        $this->assertEquals($n1->format('.', $locale["thousands_sep"]), $n1->localeFormat('.', null));
+        $this->assertEquals($n1->format($locale["decimal_point"], ','), $n1->localeFormat(null, ','));
     }
 
     public function testGetSuffixNotation()
