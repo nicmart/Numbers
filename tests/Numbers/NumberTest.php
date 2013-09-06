@@ -49,14 +49,16 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $n2 = new Number(-0.000011235523);
         $n3 = new Number(-12315639128398.232);
         $n4 = new Number(1000);
-        $n5 = new Number(0.01);
+        $n5 = new Number(999.999999);
+        $n6 = new Number(0.01);
 
         $this->assertEquals(0, $n0->getMagnitude());
         $this->assertEquals(1, $n1->getMagnitude());
         $this->assertEquals(-5, $n2->getMagnitude());
         $this->assertEquals(13, $n3->getMagnitude());
         $this->assertEquals(3, $n4->getMagnitude());
-        $this->assertEquals(-2, $n5->getMagnitude());
+        $this->assertEquals(2, $n5->getMagnitude());
+        $this->assertEquals(-2, $n6->getMagnitude());
     }
 
     public function testFloor()
