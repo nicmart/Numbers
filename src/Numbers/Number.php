@@ -152,7 +152,22 @@ class Number
      * @param string $separator
      * @return string
      */
-    public function format($decPoint = null, $separator = null)
+    public function format($decPoint = '.', $separator = ',')
+    {
+        $decimals = $this->decimalsForPrecision();
+        $string = number_format(round($this->number, $decimals), $decimals, $decPoint, $separator);
+
+        $string = rtrim(rtrim($string, $decPoint), '0');
+
+        return $string;
+    }
+
+    /**
+     * @param string|null $decPoint
+     * @param string|null $separator
+     * @return string
+     */
+    public function localeFormat($decPoint = null, $separator = null)
     {
         if ($decPoint == null || $separator == null) {
             $locale = localeconv();
@@ -165,13 +180,9 @@ class Number
                 $separator = $locale["thousands_sep"];
             }
         }
-        
-        $decimals = $this->decimalsForPrecision();
-        $string = number_format(round($this->number, $decimals), $decimals, $decPoint, $separator);
 
-        $string = rtrim(rtrim($string, $decPoint), '0');
 
-        return $string;
+        return $this->format($decPoint, $separator);
     }
 
     /**

@@ -28,6 +28,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $n1 = new Number(11.235523);
         $this->assertEquals(11.235523, $n1->get());
     }
+
     public function testRound()
     {
         $n1 = new Number(11.235523);
@@ -120,13 +121,29 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('-2.0', $n4->format('.', ','));
         $this->assertEquals('0', $n0->format('.', ','));
 
+    }
+
+    public function testLocaleFormat()
+    {
+        $n1 = new Number(1123232.9898232);
+        $n2 = new Number(0.000011235523);
 
         if (setlocale(LC_ALL, 'nl_NL') !== false || setlocale(LC_ALL, 'dutch')) {
-            $this->assertEquals('1.123.232,9898232', $n1->format());
+            $this->assertEquals("1.123.232,9898232", $n1->localeFormat());
+            $this->assertEquals("1 123 232,9898232", $n1->localeFormat(null, ' '));
+
+            $this->assertEquals('0,000011235523', $n2->localeFormat());
+            $this->assertEquals('0.000011235523', $n2->localeFormat("."));
+        } else {
+            throw new \Exception("Could not set locale");
         }
 
         if (setlocale(LC_ALL, 'en_us') !== false || setlocale(LC_ALL, 'english-us')) {
-            $this->assertEquals('1,123,232.9898232', $n1->format());
+            $this->assertEquals("1,123,232.9898232", $n1->localeFormat());
+            $this->assertEquals("1 123 232.9898232", $n1->localeFormat(null, ' '));
+
+            $this->assertEquals('0.000011235523', $n2->localeFormat());
+            $this->assertEquals('0,000011235523', $n2->localeFormat(','));
         } else {
             throw new \Exception("Could not set locale");
         }
@@ -134,21 +151,17 @@ class NumberTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSuffixNotation()
     {
-        if (setlocale(LC_ALL, 'en_us') === false && setlocale(LC_ALL, 'english-us') === false) {
-            throw new \Exception("Could not set locale");
-        }
-
         $n1 = new Number(11200000.0);
         $n2 = new Number(11.0);
         $n3 = new Number(-1231563913);
         $n4 = new Number(-22321.0);
         $n0 = new Number(0);
 
-        $this->assertEquals('11.2M', (string) $n1->getSuffixNotation());
-        $this->assertEquals('11', (string) $n2->getSuffixNotation());
-        $this->assertEquals('-1.231563913G', (string) $n3->getSuffixNotation());
-        $this->assertEquals('-22.321k', (string) $n4->getSuffixNotation());
-        $this->assertEquals('0', (string) $n0->getSuffixNotation());
+        $this->assertEquals('11.2M', (string)$n1->getSuffixNotation());
+        $this->assertEquals('11', (string)$n2->getSuffixNotation());
+        $this->assertEquals('-1.231563913G', (string)$n3->getSuffixNotation());
+        $this->assertEquals('-22.321k', (string)$n4->getSuffixNotation());
+        $this->assertEquals('0', (string)$n0->getSuffixNotation());
     }
 
     public function testApply()
