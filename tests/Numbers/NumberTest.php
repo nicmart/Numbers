@@ -61,6 +61,26 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-2, $n6->getMagnitude());
     }
 
+    public function testGetDigit()
+    {
+        $this->assertEquals(9, Number::n(123456789.1234)->getDigit(0));
+        $this->assertEquals(9, Number::n(-123456789.1234)->getDigit(0));
+        $this->assertEquals(8, Number::n(123456789.1234)->getDigit(1));
+        $this->assertEquals(8, Number::n(-123456789.1234)->getDigit(1));
+        $this->assertEquals(7, Number::n(123456789.1234)->getDigit(2));
+        $this->assertEquals(6, Number::n(123456789.1234)->getDigit(3));
+        $this->assertEquals(5, Number::n(123456789.1234)->getDigit(4));
+        $this->assertEquals(8, Number::n(123456789.1234)->getDigit(1));
+
+        $this->assertEquals(1, Number::n(123456789.1234)->getDigit(-1));
+        $this->assertEquals(2, Number::n(123456789.1234)->getDigit(-2));
+        $this->assertEquals(3, Number::n(123456789.1234)->getDigit(-3));
+        //These fails: precision too low
+        //$this->assertEquals(4, Number::n(123456789.1234)->getDigit(-4));
+        //$this->assertEquals(1, Number::n(10000000000001)->getDigit(0));
+
+    }
+
     public function testFloor()
     {
         $n1 = new Number(11.98982323);

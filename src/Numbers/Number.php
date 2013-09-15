@@ -112,6 +112,24 @@ class Number
     }
 
     /**
+     * Returns the n-th digit of the number in base $n, where n is the exponent of
+     * $base in the expansion of $this->number in base $base
+     *
+     * As usual keep in mind that float precision is limited, so there can be errors
+     * when the digit is of a magnitude 12-13 times smaller than the magnitude of
+     * the numnber.
+     *
+     * @param int $n
+     * @param int $base
+     * @return float
+     */
+    public function getDigit($n, $base = 10)
+    {
+        $m = abs($this->number) / pow($base, $n);
+        return $m % $base;
+    }
+
+    /**
      * @return int
      */
     public function getSign()
