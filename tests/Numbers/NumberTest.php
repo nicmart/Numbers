@@ -81,6 +81,17 @@ class NumberTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function testGetDigitWithNonDecimalBase()
+    {
+        $this->assertEquals(1, Number::n(bindec('1010010101'))->getDigit(0, 2));
+        $this->assertEquals(0, Number::n(bindec('1010010101'))->getDigit(1, 2));
+        $this->assertEquals(1, Number::n(bindec('1010010101'))->getDigit(2, 2));
+        $this->assertEquals(0, Number::n(bindec('1010010101'))->getDigit(3, 2));
+        $this->assertEquals(1, Number::n(bindec('1010010101'))->getDigit(4, 2));
+        $this->assertEquals(1, Number::n(bindec('1010010101'))->getDigit(9, 2));
+
+    }
+
     public function testFloor()
     {
         $n1 = new Number(11.98982323);
