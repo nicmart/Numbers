@@ -100,6 +100,23 @@ Number::n(123123.23)->getMagnitude();
 Number::n(0.01232)->getMagnitude();
 ```
 
+#### n-th digit
+Gives the n-th digit of the number in a given base
+```php
+// Returns 4
+Number::n(1234.5678)->getDigit(0);
+// Returns 3
+Number::n(1234.5678)->getDigit(1);
+//Returns 7
+Number::n(1234.5678)->getDigit(-3);
+
+// Second optional arg is the base (default is 10)
+// Returns 1
+Number::n(bindec('10110101'))->getDigit(0, 2);
+// Returns 0
+Number::n(bindec('10110101'))->getDigit(6, 2);
+```
+
 #### Sign
 The [sign function](https://en.wikipedia.org/wiki/Sign_function), as defined in mathematics
 ```php
