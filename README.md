@@ -52,15 +52,15 @@ using the "kilo", "mega", etc... symbols. All the [SI](http://en.wikipedia.org/w
 
 ```php
 // Prints "1.23k"
-echo Number::n(1234.567)->round(3)->getPrefixNotation();
+echo Number::n(1234.567)->round(3)->getSuffixNotation();
 
 
 // Prints "79G"
-echo Number::n(79123232123)->round(2)->getPrefixNotation();
+echo Number::n(79123232123)->round(2)->getSuffixNotation();
 
 
 // Prints "123.4µ"
-echo Number::n(0.0001234)->getPrefixNotation();
+echo Number::n(0.0001234)->getSuffixNotation();
 ```
 
 ### Format with thousands and decimals separator
